@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ajax application which fetches real time stock price data from NSE and gives latest sensex details</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <style>
+        body {
+            background-image: url("../images/projects/gradient_8.png");
+            background-size: cover;
+
+        }
+    </style>
+    <script>
+        var quote;
+
+        $(document).ready(function () {
+
+
+            $("#button").click(function (e) {
+                e.preventDefault();
+                getStockPrice();
+                setInterval(function () {
+                    getStockPrice();
+                }, 30000);
+            });
+        });
+
+        function getStockPrice() {
+
+            var searchString = document.getElementById("selectedata").value;
+
+            var getUrl = "http://finance.google.com/finance/info?client=ig&q=NSE:" + searchString + ",INDEXBOM:SENSEX";
+
+            $.ajax({
+
+                url: getUrl,
+                dataType: "jsonp",
+                jsonp: "callback",
+                jsonpCallback: "quote"
+            });
+            var i = 0;
+            quote = function (data) {
+                console.log(data);
+                $.each(data, function (key, val) {
+                    for (var i = 0; i <= 1; i++) {
+                        $("#l_cur" + i).val(data[i].l_cur)
+
+                        $("#t" + i).val(data[i].t)
+
+                        $("#c" + i).val(data[i].c)
+
+
+                        $("#c_fix" + i).val(data[i].c_fix)
+
+
+                        $("#ccol" + i).val(data[i].ccol)
+
+
+                        $("#cp" + i).val(data[i].cp)
+
+
+                        $("#cp_fix" + i).val(data[i].cp_fix)
+
+
+                        $("#e" + i).val(data[i].e)
+
+
+                        $("#id" + i).val(data[i].id)
+
+
+                        $("#l" + i).val(data[i].l)
+
+
+                        $("#l_fix" + i).val(data[i].l_fix)
+
+                        $("#lt" + i).val(data[i].lt)
+
+                        $("#lt_dts" + i).val(data[i].lt_dts)
+
+                        $("#ltt" + i).val(data[i].ltt)
+
+                        $("#pcls_fix" + i).val(data[i].pcls_fix)
+
+                        $("#s" + i).val(data[i].s)
+                    }
+
+                });
+            };
+        }
+
+        function formatDate(date) {
+
+
+            return fdate;
+        }
+    </script>
+
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../css/bootstrap.css">
+
+
+    <![endif]-->
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-inverse">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
+            <a class="navbar-brand " href="#">Live Stock Price And Sensex Info</a></div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="jumbotron">
+                <h2 align="center"><span class="label label-info ">About this application</span></h2>
+                <h4 class="text-center">Indian Stock Price and Sensex info Application</h4>
+                <hr>
+                <h5 class="text-center">Technology used is Ajax and Json</h5>
+                <hr>
+                <h5 class="text-center">This application fetches the stock price data from NSE and gives the "Live"
+                    sensex details for every 30 seconds</h5>
+                <h5 class="text-center">As I have worked in similar product in BFSI domain this POC app verifies my
+                    skillset </h5>
+                <br>
+                <hr>
+                <div align="center"> <h5 style="color: red" ><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Disclaimer:Below web application should not be used for
+                    commercial purpose!!Designed and created by Ramanath Madiwal.All &copy rights
+                    belongs to www.ramanathmadiwal.com</h5>
+            </div>
+        </div>
+    </div>
+    <div class="container"></div>
+    <hr>
+    <div class="container"></div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div style="border: thin solid black">
+                    <br>
+                    <br>
+                    <div align="center"><img
+                            src="../images/projects/stockscreen.jpg"
+                            alt="Thumbnail Image 1" class="img-responsive">
+                    </div>
+                    &nbsp;
+                    &nbsp;
+
+                    <div align="center">
+                        <h3 align="center">Read the below instructions</h3>
+                        <p align="center">Please type the security name of 'Single'company like example(without the
+                            inverted comma's):-"RELIANCE" ,"LT" ,HDFC and press
+                            button</p>
+                        <div align="center">
+                            <input type="text" text-align=center id="selectedata">
+                        </div>
+                        &nbsp;
+                        &nbsp;
+                        <p align="center"><a href="#" class="btn btn-danger" role="button" id="button">Fetch the Live
+                            Data</a></p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                &nbsp;
+                &nbsp;
+                &nbsp;<div>
+                    &nbsp;
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+            </div>
+        </div>
+    </div>
+        <div class=" col-sm-6 col-md-6">
+
+            <div class="panel panel-default panel-danger">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    <h3>Nifty Details</h3>
+                </div>
+                <!-- Table -->
+                <table class="table">
+                    <thead>
+
+
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row"><label style="width:300px; padding-right:37px;">LTP:l_curl</label> <input
+                                type="text"
+                                id="l_cur0">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label style="width:300px; padding-right:37px;">Company Code</label> <input
+                                type="text"
+                                id="t0">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label style="width:300px; padding-right:37px;">c</label> <input type="text"
+                                                                                                         id="c0">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label style="width:300px; padding-right:37px;">c_fix</label> <input type="text"
+                                                                                                             id="c_fix0">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label style="width:300px; padding-right:37px;">ccol</label> <input type="text"
+                                                                                                            id="ccol0">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label style="width:300px; padding-right:37px;">cp</label> <input type="text"
+                                                                                                          id="cp0">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label style="width:300px; padding-right:37px;">e</label> <input type="text"
+                                                                                                         id="e0">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label style="width:300px; padding-right:37px;">id</label> <input type="text"
+                                                                                                          id="id0">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label style="width:300px; padding-right:37px;">l</label> <input type="text"
+                                                                                                         id="l0">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label style="width:300px; padding-right:37px;">l_fix</label> <input type="text"
+                                                                                                             id="l_fix0">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label style="width:300px; padding-right:37px;">lt</label> <input type="text"
+                                                                                                          id="lt0">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label style="width:300px; padding-right:37px;">lt_dts</label> <input type="text"
+                                                                                                              id="lt_dts0">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label style="width:300px; padding-right:37px;">ltt</label> <input type="text"
+                                                                                                           id="ltt0">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label style="width:300px; padding-right:37px;">pcls_fix</label> <input type="text"
+                                                                                                                id="pcls_fix0">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label style="width:300px; padding-right:37px;">s</label> <input type="text"
+                                                                                                         id="s0">
+                        </th>
+                    </tr>
+
+                    <th scope="row"><p class="text-center"><a href="https://www.nseindia.com/" class="btn-danger btn">
+                        Verify the data in NSE website
+                    </a></p></th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    <div class="col-sm-6 col-md-6">
+
+
+        <div class="panel panel-default panel-info">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <h3>Sensex Details</h3>
+            </div>
+            <!-- Table -->
+            <table class="table">
+                <thead>
+                <tr>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row"><label style="width:300px; padding-right:37px;">Sensex:</label> <input type="text"
+                                                                                                           id="l_cur1">
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><label style="width:300px; padding-right:37px;">T</label> <input type="text"
+                                                                                                     id="t1">
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><label style="width:300px; padding-right:37px;">C</label> <input type="text"
+                                                                                                     id="c1">
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><label style="width:300px; padding-right:37px;">C_fix</label> <input type="text"
+                                                                                                         id="c_fix1">
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><label style="width:300px; padding-right:37px;">ccol</label> <input type="text"
+                                                                                                        id="ccol1">
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><label style="width:300px; padding-right:37px;">cp1</label> <input type="text"
+                                                                                                       id="cp1">
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><label style="width:300px; padding-right:37px;">e1</label> <input type="text"
+                                                                                                      id="e1">
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><label style="width:300px; padding-right:37px;">id</label> <input type="text"
+                                                                                                      id="id1">
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><label style="width:300px; padding-right:37px;">l</label> <input type="text"
+                                                                                                     id="l1">
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><label style="width:300px; padding-right:37px;">l_fix</label> <input type="text"
+                                                                                                         id="l_fix1">
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><label style="width:300px; padding-right:37px;">lt</label> <input type="text"
+                                                                                                      id="lt1">
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><label style="width:300px; padding-right:37px;">lt_dist</label> <input type="text"
+                                                                                                           id="lt_dts1">
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><label style="width:300px; padding-right:37px;">ltt1</label> <input type="text"
+                                                                                                        id="ltt1">
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><label style="width:300px; padding-right:37px;">pcls_fix1</label> <input type="text"
+                                                                                                             id="pcls_fix1">
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><label style="width:300px; padding-right:37px;">s</label> <input type="text"
+                                                                                                     id="s1">
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="row"><p class="text-center"><a href="//http://www.bseindia.com/" class="btn-info btn">Verify the data in BSE website</a></p></th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+</div>
+<hr>
+
+
+<hr>
+<footer class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <p>Copyright © Ramanath Madiwal. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- jQuery first, then Bootstrap JS. -->
+
+<script src="../../../bootstrap4hussey/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

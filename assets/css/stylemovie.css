@@ -1,0 +1,41 @@
+#movies img, #movie img{
+  width:100%;
+}
+
+@media(min-width:960px){
+  #movies .col-md-3 .well{
+    height: 390px;
+  }
+
+  #movies .col-md-3 img{
+    height:240px;
+  }
+
+}
+.bg{
+  background-color: #0b0b0b;
+}
+.container{
+  background-color: #0b0b0b;
+}
+.jumbotron{
+  background-color: #0b0b0b;
+}
+.search{
+  margin-top: 200px;
+}
+
+
+.moviebackground{
+  background-image: url('../images/movieinfo/gradientbg.jpg');
+  width: auto;
+  height: auto;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+body {background-color: deeppink;}
+
+body {color: mediumspringgreen;}
